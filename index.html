@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser History & Tab Manager — DSA Interactive Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Left Sidebar Navigation for Scroll Slides -->
+  <aside class="sidebar-nav">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🌐</span>
+        <span class="logo-text"><strong></strong>HYSTERIO</strong></span>
+      </div>
+      <div class="logo-subtext">DSA Browser History & Tab Management</div><br>
+      <div class="sidebar-tag">Slide Sections</div>
+    </div>
+    
+    <nav class="nav-links">
+      <a href="#intro" class="nav-link active">
+        <span class="nav-num">01</span>
+        <span class="nav-label">Overview</span>
+      </a>
+      <a href="#stack-section" class="nav-link">
+        <span class="nav-num">02</span>
+        <span class="nav-label">Stacks (Back)</span>
+      </a>
+      <a href="#dll-section" class="nav-link">
+        <span class="nav-num">03</span>
+        <span class="nav-label">Doubly Linked List</span>
+      </a>
+      <a href="#array-section" class="nav-link">
+        <span class="nav-num">04</span>
+        <span class="nav-label">Dynamic Array</span>
+      </a>
+      <a href="#search-section" class="nav-link">
+        <span class="nav-num">05</span>
+        <span class="nav-label">Linear Search</span>
+      </a>
+      <a href="#hash-section" class="nav-link">
+        <span class="nav-num">06</span>
+        <span class="nav-label">Hash Table</span>
+      </a>
+      <a href="#summary-section" class="nav-link">
+        <span class="nav-num">07</span>
+        <span class="nav-label">Summary</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="indicator-dot"></span>
+      <span class="indicator-text">Interactive Demo</span>
+    </div>
+  </aside>
+
+  <!-- Global Tooltip Container for Hover Interactions -->
+  <div id="dsa-tooltip" class="dsa-tooltip" aria-hidden="true">
+    <div class="tooltip-header">
+      <span class="tooltip-badge" id="tt-concept">DSA Concept</span>
+      <span class="tooltip-complexity" id="tt-complexity">O(1)</span>
+    </div>
+    <div class="tooltip-title" id="tt-title">Element Title</div>
+    <div class="tooltip-desc" id="tt-desc">Explanation of purpose.</div>
+  </div>
+
+  <main class="page-wrapper">
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: INTRODUCTION                   -->
+    <!-- ========================================== -->
+    <section id="intro" class="section-card hero-section">
+      <div class="section-header text-center">
+        <h1 class="main-title">Inside Your Browser</h1>
+        <h2 class="sub-title">How Data Structures Power Browser History &amp; Tab Management</h2>
+        <p class="intro-description">
+          Every time you browse the internet, data structures work behind the scenes to manage your tabs, navigation and browsing history.
+          Scroll down and hover over components to inspect the algorithms and data structures powering each action.
+        </p>
+      </div>
+
+      <!-- Realistic Browser Chrome Simulation -->
+      <div class="browser-mockup" id="browser-hero-mockup">
+        <!-- Browser Window Header -->
+        <div class="mockup-header">
+          <div class="window-controls">
+            <span class="dot close"></span>
+            <span class="dot minimize"></span>
+            <span class="dot expand"></span>
+          </div>
+          <!-- Simulated Tabs -->
+          <div class="mockup-tabs">
+            <div class="mockup-tab active dsa-hoverable"
+                 data-dsa-title="Browser Tab Instance"
+                 data-dsa-concept="Array Element"
+                 data-dsa-desc="Active tab stored at index 0 of the browser's dynamic tab array. Allows direct O(1) tab switching."
+                 data-dsa-complexity="O(1) Access">
+              <span class="tab-fav">🔍</span>
+              <span class="tab-title">Google</span>
+              <span class="tab-close">×</span>
+            </div>
+            <div class="mockup-tab dsa-hoverable"
+                 data-dsa-title="Background Tab"
+                 data-dsa-concept="Array Element"
+                 data-dsa-desc="Contiguous array element at index 1. Memory remains allocated for quick access."
+                 data-dsa-complexity="O(1) Access">
+              <span class="tab-fav">▶️</span>
+              <span class="tab-title">YouTube</span>
+              <span class="tab-close">×</span>
+            </div>
+            <div class="mockup-tab dsa-hoverable"
+                 data-dsa-title="Background Tab"
+                 data-dsa-concept="Array Element"
+                 data-dsa-desc="Stored at index 2 in array. Closing it shifts subsequent tabs left in O(n) time."
+                 data-dsa-complexity="O(n) Removal">
+              <span class="tab-fav">📖</span>
+              <span class="tab-title">Wikipedia</span>
+              <span class="tab-close">×</span>
+            </div>
+            <button class="tab-add-btn dsa-hoverable"
+                    data-dsa-title="New Tab Action"
+                    data-dsa-concept="Array Append (push)"
+                    data-dsa-desc="Appends a new tab object to the end of the dynamic array."
+                    data-dsa-complexity="O(1) Amortized">+</button>
+          </div>
+        </div>
+
+        <!-- Browser Toolbar / Address Bar -->
+        <div class="mockup-toolbar">
+          <div class="nav-buttons">
+            <button class="tool-btn dsa-hoverable"
+                    data-dsa-title="Back Button"
+                    data-dsa-concept="Stack Pop (Back Stack)"
+                    data-dsa-desc="Pops the current URL onto the Forward Stack and restores the previous URL from the Back Stack."
+                    data-dsa-complexity="O(1) Time">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="tool-btn dsa-hoverable"
+                    data-dsa-title="Forward Button"
+                    data-dsa-concept="Stack Pop (Forward Stack)"
+                    data-dsa-desc="Pops the next URL from the Forward Stack and pushes the current URL onto the Back Stack."
+                    data-dsa-complexity="O(1) Time">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button class="tool-btn dsa-hoverable"
+                    data-dsa-title="Refresh Button"
+                    data-dsa-concept="Cache / Hash Lookup"
+                    data-dsa-desc="Re-fetches or queries cached resources using the URL as a hash key."
+                    data-dsa-complexity="O(1) Hash Query">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </button>
+          </div>
+
+          <div class="address-bar dsa-hoverable"
+               data-dsa-title="Address Bar (URL Input)"
+               data-dsa-concept="Hash Table Key / String"
+               data-dsa-desc="The URL acts as a key for fast hash lookups in history and DNS resolver caches."
+               data-dsa-complexity="O(1) Lookup">
+            <span class="lock-icon">🔒</span>
+            <span class="url-text">https://www.google.com</span>
+          </div>
+
+          <button class="tool-btn history-btn dsa-hoverable"
+                  data-dsa-title="Browser History Icon"
+                  data-dsa-concept="Linear Search / List"
+                  data-dsa-desc="Opens historical visited log stored as a sequential list searched via Linear Search."
+                  data-dsa-complexity="O(n) Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </button>
+        </div>
+
+        <!-- Mockup Viewport Content -->
+        <div class="mockup-content">
+          <div class="content-preview-box">
+            <div class="preview-badge">Live Simulation</div>
+            <h3>Explore Data Structures Integrated in Real Browser Workflows</h3>
+            <p>Hover over any button or tab above, then scroll to see interactive sandboxes for Stacks, Linked Lists, Arrays, Linear Search, and Hash Tables.</p>
+            <div class="preview-features-grid">
+              <div class="mini-feature">
+                <span class="mf-icon">🥞</span>
+                <span class="mf-text"><strong>Navigation:</strong> LIFO Two-Stack System</span>
+              </div>
+              <div class="mini-feature">
+                <span class="mf-icon">🔗</span>
+                <span class="mf-text"><strong>Connections:</strong> Doubly Linked List</span>
+              </div>
+              <div class="mini-feature">
+                <span class="mf-icon">📑</span>
+                <span class="mf-text"><strong>Tabs:</strong> Dynamic Indexed Array</span>
+              </div>
+              <div class="mini-feature">
+                <span class="mf-icon">🔎</span>
+                <span class="mf-text"><strong>History Search:</strong> Sequential Linear Search</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: BACK & FORWARD NAVIGATION — STACK -->
+    <!-- ========================================== -->
+    <section id="stack-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">02</span>
+        <div>
+          <h2 class="section-heading">Back &amp; Forward Navigation — Stack</h2>
+          <p class="section-subtext">How Last In, First Out (LIFO) powers the Back and Forward buttons.</p>
+        </div>
+      </div>
+
+      <!-- Theory Card -->
+      <div class="theory-box">
+        <div class="theory-grid">
+          <div class="theory-item">
+            <span class="theory-badge dsa-hoverable"
+                  data-dsa-title="LIFO Principle"
+                  data-dsa-concept="Stack Core Axiom"
+                  data-dsa-desc="Last In, First Out means the most recently visited website is the first one restored when clicking Back."
+                  data-dsa-complexity="Fundamental Rule">LIFO (Last In, First Out)</span>
+            <p>The element placed last into the stack is the very first one removed.</p>
+          </div>
+          <div class="theory-item">
+            <span class="theory-badge dsa-hoverable"
+                  data-dsa-title="Push Operation"
+                  data-dsa-concept="Stack Method"
+                  data-dsa-desc="Adds a page reference to the top of the stack in O(1) constant time."
+                  data-dsa-complexity="O(1) Time">Push Operation</span>
+            <p>Visiting a new page or stepping backward stores the departing page onto the stack.</p>
+          </div>
+          <div class="theory-item">
+            <span class="theory-badge dsa-hoverable"
+                  data-dsa-title="Pop Operation"
+                  data-dsa-concept="Stack Method"
+                  data-dsa-desc="Removes and returns the top element in O(1) constant time."
+                  data-dsa-complexity="O(1) Time">Pop Operation</span>
+            <p>Clicking Back or Forward pops the topmost target URL to display.</p>
+          </div>
+        </div>
+        <div class="sequence-sample">
+          <strong>Standard Sequence:</strong>
+          <span class="seq-tag">Google</span> →
+          <span class="seq-tag">YouTube</span> →
+          <span class="seq-tag">Wikipedia</span> →
+          <span class="seq-tag">GitHub</span>
+        </div>
+      </div>
+
+      <!-- Interactive Playground -->
+      <div class="interactive-arena">
+        <div class="arena-controls">
+          <div class="input-group">
+            <label for="new-url-select">Select / Enter Website to Visit:</label>
+            <div class="combo-row">
+              <select id="new-url-select" class="form-select">
+                <option value="Google">Google</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Wikipedia">Wikipedia</option>
+                <option value="GitHub">GitHub</option>
+                <option value="StackOverflow">StackOverflow</option>
+                <option value="Reddit">Reddit</option>
+              </select>
+              <button id="btn-visit" class="btn btn-primary dsa-hoverable"
+                      data-dsa-title="Visit Website Button"
+                      data-dsa-concept="Stack Push & Clear"
+                      data-dsa-desc="Pushes current page to Back Stack, clears Forward Stack, and sets the new active page."
+                      data-dsa-complexity="O(1) Push / Reset">
+                Visit Website
+              </button>
+            </div>
+          </div>
+
+          <div class="action-buttons-row">
+            <button id="btn-stack-back" class="btn btn-secondary dsa-hoverable"
+                    data-dsa-title="Back Navigation"
+                    data-dsa-concept="Pop Back, Push Forward"
+                    data-dsa-desc="Pushes current page to Forward Stack and pops the top of Back Stack."
+                    data-dsa-complexity="O(1) Time">
+              ← Back
+            </button>
+            <button id="btn-stack-forward" class="btn btn-secondary dsa-hoverable"
+                    data-dsa-title="Forward Navigation"
+                    data-dsa-concept="Pop Forward, Push Back"
+                    data-dsa-desc="Pushes current page to Back Stack and pops the top of Forward Stack."
+                    data-dsa-complexity="O(1) Time">
+              Forward →
+            </button>
+            <button id="btn-stack-demo" class="btn btn-outline" title="Auto-runs Google → YouTube → Wikipedia → GitHub sequence">
+              ▶ Load Example Sequence
+            </button>
+            <button id="btn-stack-reset" class="btn btn-outline">
+              🔄 Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Real-time Status Banner -->
+        <div class="action-log" id="stack-action-log">
+          <span class="log-indicator">Action Log:</span> Initial state loaded. Ready to browse.
+        </div>
+
+        <!-- Visual Two Stacks Demonstration Layout -->
+        <div class="two-stacks-layout">
+          <!-- Back Stack Column -->
+          <div class="stack-column dsa-hoverable"
+               data-dsa-title="Back Stack"
+               data-dsa-concept="LIFO Stack Structure"
+               data-dsa-desc="Stores previously visited pages. When Back is clicked, the top item is popped and becomes current."
+               data-dsa-complexity="O(1) Push / Pop">
+            <div class="stack-header">
+              <span class="stack-name">Back Stack</span>
+              <span class="stack-badge" id="back-stack-count">0 items</span>
+            </div>
+            <div class="stack-container" id="back-stack-visual">
+              <div class="stack-empty-msg">Back stack is empty</div>
+            </div>
+            <div class="stack-footer">
+              <span class="arrow-indicator">▲ Top (Pushed/Popped here)</span>
+            </div>
+          </div>
+
+          <!-- Active Page Center Display -->
+          <div class="current-page-column">
+            <div class="current-page-card dsa-hoverable"
+                 data-dsa-title="Current Active Page"
+                 data-dsa-concept="State Pointer / Variable"
+                 data-dsa-desc="Represents the active tab URL. It sits between the Back Stack and Forward Stack."
+                 data-dsa-complexity="O(1) Reference">
+              <span class="current-label">CURRENT ACTIVE PAGE</span>
+              <div class="current-website-display" id="current-website-display">Google</div>
+              <div class="current-website-url" id="current-website-url">https://www.google.com</div>
+              <div class="state-hint">When you navigate, this page moves between stacks</div>
+            </div>
+          </div>
+
+          <!-- Forward Stack Column -->
+          <div class="stack-column dsa-hoverable"
+               data-dsa-title="Forward Stack"
+               data-dsa-concept="LIFO Stack Structure"
+               data-dsa-desc="Stores pages you backed away from. Cleared automatically whenever a completely new URL is visited."
+               data-dsa-complexity="O(1) Push / Pop">
+            <div class="stack-header">
+              <span class="stack-name">Forward Stack</span>
+              <span class="stack-badge" id="fwd-stack-count">0 items</span>
+            </div>
+            <div class="stack-container" id="forward-stack-visual">
+              <div class="stack-empty-msg">Forward stack is empty</div>
+            </div>
+            <div class="stack-footer">
+              <span class="arrow-indicator">▲ Top (Pushed/Popped here)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: DOUBLY LINKED LIST             -->
+    <!-- ========================================== -->
+    <section id="dll-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">03</span>
+        <div>
+          <h2 class="section-heading">Doubly Linked List — Page Connections</h2>
+          <p class="section-subtext">An alternative architectural model for bidirectional browser history traversal.</p>
+        </div>
+      </div>
+
+      <!-- Theory Explanation -->
+      <div class="theory-box">
+        <div class="note-callout">
+          <strong>💡 Architecture Note:</strong> While modern browsers commonly use two stacks for quick LIFO Back/Forward button history, a <strong>Doubly Linked List</strong> represents an elegant alternative model where each history record is a standalone node containing bidirectional pointers.
+        </div>
+        <div class="dll-specs-grid">
+          <div class="spec-card dsa-hoverable"
+               data-dsa-title="Previous Pointer (prev)"
+               data-dsa-concept="Memory Reference"
+               data-dsa-desc="Points backward to the chronologically prior visited web page."
+               data-dsa-complexity="O(1) Pointer Access">
+            <span class="spec-icon">⬅️</span>
+            <h4>Previous Pointer (`prev`)</h4>
+            <p>Allows instant backward navigation to the earlier page without re-allocating memory.</p>
+          </div>
+          <div class="spec-card dsa-hoverable"
+               data-dsa-title="Node Data Payload"
+               data-dsa-concept="Data Field"
+               data-dsa-desc="Stores page information such as URL, page title, and timestamp."
+               data-dsa-complexity="O(1) Read">
+            <span class="spec-icon">📄</span>
+            <h4>Website Data</h4>
+            <p>Stores the URL, page state, scroll position, and title for the visited node.</p>
+          </div>
+          <div class="spec-card dsa-hoverable"
+               data-dsa-title="Next Pointer (next)"
+               data-dsa-concept="Memory Reference"
+               data-dsa-desc="Points forward to the next visited page along the history chain."
+               data-dsa-complexity="O(1) Pointer Access">
+            <span class="spec-icon">➡️</span>
+            <h4>Next Pointer (`next`)</h4>
+            <p>Enables forward traversal when stepping forward through the browsing session.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DLL Visual Interactive Playground -->
+      <div class="interactive-arena">
+        <div class="arena-controls">
+          <div class="dll-action-row">
+            <button id="btn-dll-prev" class="btn btn-secondary dsa-hoverable"
+                    data-dsa-title="Backward Traversal"
+                    data-dsa-concept="curr = curr.prev"
+                    data-dsa-desc="Moves the current pointer to the previous node along the bidirectional link."
+                    data-dsa-complexity="O(1) Step">
+              ← Traverse Backward (prev)
+            </button>
+            <button id="btn-dll-next" class="btn btn-secondary dsa-hoverable"
+                    data-dsa-title="Forward Traversal"
+                    data-dsa-concept="curr = curr.next"
+                    data-dsa-desc="Moves the current pointer to the next node along the forward link."
+                    data-dsa-complexity="O(1) Step">
+              Traverse Forward (next) →
+            </button>
+            <div class="dll-insert-group">
+              <input type="text" id="dll-insert-name" placeholder="New Page (e.g. Medium)" class="form-input">
+              <button id="btn-dll-insert" class="btn btn-primary dsa-hoverable"
+                      data-dsa-title="Insert Node"
+                      data-dsa-concept="Linked List Insertion"
+                      data-dsa-desc="Inserts a new node after current pointer and discards old forward branches."
+                      data-dsa-complexity="O(1) Pointer Update">
+                + Insert Node After Current
+              </button>
+            </div>
+            <button id="btn-dll-reset" class="btn btn-outline">Reset Default</button>
+          </div>
+        </div>
+
+        <div class="action-log" id="dll-action-log">
+          <span class="log-indicator">DLL Pointer:</span> Currently at Head node (Google). Bidirectional pointers linked.
+        </div>
+
+        <!-- Horizontal Doubly Linked List Visualizer -->
+        <div class="dll-viewport">
+          <div class="dll-chain-container" id="dll-nodes-container">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 4: TAB MANAGEMENT — ARRAY         -->
+    <!-- ========================================== -->
+    <section id="array-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">04</span>
+        <div>
+          <h2 class="section-heading">Tab Management — Array / Dynamic Array</h2>
+          <p class="section-subtext">Contiguous indexed memory structures for holding open browser tabs.</p>
+        </div>
+      </div>
+
+      <!-- Theory Explanation -->
+      <div class="theory-box">
+        <p class="mb-2">
+          Browsers store open tabs in an <strong>array or dynamic array (e.g., std::vector, ArrayList, or JS Array)</strong>.
+          Each tab occupies a contiguous index in memory, allowing <strong>instant \(O(1)\) random access</strong> when switching tabs.
+        </p>
+        <div class="complexity-strip">
+          <div class="c-item dsa-hoverable"
+               data-dsa-title="Index Access"
+               data-dsa-concept="Direct Array Indexing"
+               data-dsa-desc="Accessing tab at arr[i] uses pointer arithmetic: base_addr + (i * size)."
+               data-dsa-complexity="O(1) Constant Time">
+            <span class="c-label">Access Tab by Index:</span>
+            <span class="c-val badge-green">O(1)</span>
+          </div>
+          <div class="c-item dsa-hoverable"
+               data-dsa-title="Append Tab"
+               data-dsa-concept="Array Push"
+               data-dsa-desc="Adding a new tab to the right end of the array."
+               data-dsa-complexity="O(1) Amortized">
+            <span class="c-label">Add Tab at End:</span>
+            <span class="c-val badge-green">O(1) Amortized</span>
+          </div>
+          <div class="c-item dsa-hoverable"
+               data-dsa-title="Remove/Close Tab"
+               data-dsa-concept="Array Deletion & Shift"
+               data-dsa-desc="Closing a tab at index i requires shifting all subsequent tabs left to fill the gap."
+               data-dsa-complexity="O(n) Linear Time">
+            <span class="c-label">Close Tab in Middle:</span>
+            <span class="c-val badge-orange">O(n) Shifting</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Array Interactive Playground -->
+      <div class="interactive-arena">
+        <div class="arena-controls">
+          <div class="tab-control-row">
+            <div class="input-group-inline">
+              <input type="text" id="tab-name-input" placeholder="New Tab Name (e.g. MDN Docs)" class="form-input">
+              <button id="btn-add-tab" class="btn btn-primary dsa-hoverable"
+                      data-dsa-title="Add Tab Operation"
+                      data-dsa-concept="Array push()"
+                      data-dsa-desc="Appends a new tab element to the next available index in the array."
+                      data-dsa-complexity="O(1) Amortized">
+                + Add Tab
+              </button>
+            </div>
+            <button id="btn-close-active-tab" class="btn btn-danger dsa-hoverable"
+                    data-dsa-title="Close Active Tab"
+                    data-dsa-concept="Array splice(index, 1)"
+                    data-dsa-desc="Removes the active tab and shifts remaining elements left."
+                    data-dsa-complexity="O(n) Shifts">
+              ✕ Close Active Tab
+            </button>
+            <button id="btn-reset-tabs" class="btn btn-outline">Reset Default Tabs</button>
+          </div>
+        </div>
+
+        <div class="action-log" id="tab-action-log">
+          <span class="log-indicator">Array Status:</span> 4 tabs active. Contiguous indices [0, 1, 2, 3].
+        </div>
+
+        <!-- Visual Tab Bar Above Array Representation -->
+        <div class="tab-management-visualizer">
+          <div class="visual-label">BROWSER TAB STRIP (VISUAL UI):</div>
+          <div class="browser-tab-bar" id="live-tab-bar">
+            <!-- Injected by script.js -->
+          </div>
+
+          <div class="visual-label mt-4">UNDERLYING DATA STRUCTURE: ARRAY MEMORY SLOTS:</div>
+          <div class="array-memory-grid" id="array-memory-display">
+            <!-- Injected by script.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 5: BROWSING HISTORY SEARCH        -->
+    <!-- ========================================== -->
+    <section id="search-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">05</span>
+        <div>
+          <h2 class="section-heading">Browsing History Search — Linear Search</h2>
+          <p class="section-subtext">Sequential element-by-element scanning through an unsorted chronological log.</p>
+        </div>
+      </div>
+
+      <!-- Theory Explanation -->
+      <div class="theory-box">
+        <div class="search-theory-header">
+          <div class="quote-text">
+            "Linear Search checks elements sequentially until the required element is found or the list ends."
+          </div>
+          <div class="time-badge dsa-hoverable"
+               data-dsa-title="Time Complexity: Linear Search"
+               data-dsa-concept="O(n) Algorithmic Bound"
+               data-dsa-desc="In the worst case (item at end or not found), the algorithm makes n comparisons."
+               data-dsa-complexity="O(n) Linear">
+            Time Complexity: <strong>O(n)</strong>
+          </div>
+        </div>
+        <p class="mt-2">
+          Because browser history is ordered chronologically by timestamp (not alphabetically by URL), searching for a specific keyword in an unindexed history list requires inspecting entries one by one from beginning to end.
+        </p>
+      </div>
+
+      <!-- Interactive Linear Search Arena -->
+      <div class="interactive-arena">
+        <div class="arena-controls">
+          <div class="search-form-row">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="history-search-input" placeholder="Enter website to search (e.g. Wikipedia)" value="Wikipedia" class="form-input">
+            </div>
+            <button id="btn-run-search" class="btn btn-primary dsa-hoverable"
+                    data-dsa-title="Execute Linear Search"
+                    data-dsa-concept="Sequential Algorithm"
+                    data-dsa-desc="Iterates through array indices [0 ... n-1] checking if target matches element."
+                    data-dsa-complexity="O(n) Time">
+              ▶ Search Website
+            </button>
+            <button id="btn-step-search" class="btn btn-secondary" title="Manually step through one comparison at a time">
+              Step-by-Step
+            </button>
+            <button id="btn-reset-search" class="btn btn-outline">
+              Reset Search
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Search Execution Metrics -->
+        <div class="search-metrics-panel">
+          <div class="metric-card">
+            <span class="m-label">Target Search Term</span>
+            <span class="m-val" id="metric-target">Wikipedia</span>
+          </div>
+          <div class="metric-card">
+            <span class="m-label">Current Element Checked</span>
+            <span class="m-val" id="metric-current">-</span>
+          </div>
+          <div class="metric-card">
+            <span class="m-label">Match Status</span>
+            <span class="m-val" id="metric-match">Idle</span>
+          </div>
+          <div class="metric-card">
+            <span class="m-label">Total Comparisons</span>
+            <span class="m-val highlight" id="metric-comparisons">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="m-label">Search Result</span>
+            <span class="m-val" id="metric-result">Ready</span>
+          </div>
+        </div>
+
+        <!-- Sequential History Items Visual List -->
+        <div class="history-list-wrapper">
+          <div class="history-list" id="history-items-container">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 6: HASH TABLE — OPTIONAL CONCEPT  -->
+    <!-- ========================================== -->
+    <section id="hash-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">06</span>
+        <div>
+          <h2 class="section-heading">Hash Table — Fast URL &amp; Cache Lookup (Optional Concept)</h2>
+          <p class="section-subtext">Direct \(O(1)\) retrieval using mathematical hashing on URLs.</p>
+        </div>
+      </div>
+
+      <!-- Theory Explanation -->
+      <div class="theory-box">
+        <p>
+          While Linear Search takes \(O(n)\) time, browsers also rely heavily on <strong>Hash Tables</strong> (Key-Value mappings) for features requiring instant lookups, such as DNS caching, favicon lookups, and visited site metadata.
+        </p>
+        <div class="hash-concept-pill dsa-hoverable"
+             data-dsa-title="Hash Function Concept"
+             data-dsa-concept="Key-to-Index Mapping"
+             data-dsa-desc="Computes hash(key) % capacity to immediately jump to the target memory bucket without searching."
+             data-dsa-complexity="Average O(1) Time">
+          <span>Average Lookup: <strong>O(1) Constant Time</strong></span> Under suitable conditions and low collisions.
+        </div>
+      </div>
+
+      <!-- Interactive Hash Playground -->
+      <div class="interactive-arena">
+        <div class="arena-controls">
+          <div class="hash-lookup-row">
+            <label for="hash-key-select">Select a URL Key to Lookup:</label>
+            <select id="hash-key-select" class="form-select">
+              <option value="youtube.com">youtube.com</option>
+              <option value="google.com">google.com</option>
+              <option value="wikipedia.org">wikipedia.org</option>
+              <option value="github.com">github.com</option>
+              <option value="stackoverflow.com">stackoverflow.com</option>
+            </select>
+            <button id="btn-hash-lookup" class="btn btn-primary dsa-hoverable"
+                    data-dsa-title="Hash Lookup"
+                    data-dsa-concept="O(1) Table Access"
+                    data-dsa-desc="Hashes key string to locate the exact bucket index instantly."
+                    data-dsa-complexity="O(1) Lookup">
+              Lookup Key Details
+            </button>
+          </div>
+        </div>
+
+        <div class="hash-demo-grid">
+          <!-- Hash Calculation Card -->
+          <div class="hash-step-card">
+            <span class="step-badge">Step 1: Hash Function</span>
+            <div class="hash-formula-box">
+              <code id="hash-formula-display">hash("youtube.com") % 5 = Bucket 2</code>
+            </div>
+            <p class="step-desc">A hash function computes a numerical index from the URL characters.</p>
+          </div>
+
+          <!-- Hash Buckets Display -->
+          <div class="hash-step-card">
+            <span class="step-badge">Step 2: Key-Value Buckets</span>
+            <div class="hash-buckets-list" id="hash-buckets-container">
+              <!-- Injected by script.js -->
+            </div>
+          </div>
+
+          <!-- Retrieved Value Card -->
+          <div class="hash-step-card">
+            <span class="step-badge">Step 3: Retrieved Value Object</span>
+            <div class="retrieved-data-box" id="hash-result-box">
+              <div class="empty-hint">Select a key and click Lookup to retrieve details in O(1) time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECTION 7: CONCLUSION — DSA IN ACTION     -->
+    <!-- ========================================== -->
+    <section id="summary-section" class="section-card">
+      <div class="section-title-wrap">
+        <span class="section-number">07</span>
+        <div>
+          <h2 class="section-heading">Conclusion — DSA in Action</h2>
+          <p class="section-subtext">Comprehensive mapping of browser features to core Computer Science concepts.</p>
+        </div>
+      </div>
+
+      <!-- Summary Table -->
+      <div class="table-responsive">
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Browser Feature</th>
+              <th>DSA Concept</th>
+              <th>Time Complexity</th>
+              <th>Why This Data Structure?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="dsa-hoverable"
+                data-dsa-title="Back Navigation"
+                data-dsa-concept="Stack (LIFO)"
+                data-dsa-desc="Allows reversing recent page visits in constant time."
+                data-dsa-complexity="O(1) push & pop">
+              <td><strong>Back Navigation</strong></td>
+              <td><span class="concept-pill pill-purple">Stack</span></td>
+              <td><code>O(1)</code> Push / Pop</td>
+              <td>LIFO structure guarantees the most recently visited page is popped first.</td>
+            </tr>
+            <tr class="dsa-hoverable"
+                data-dsa-title="Forward Navigation"
+                data-dsa-concept="Stack (LIFO)"
+                data-dsa-desc="Stores previously popped pages; cleared on new visits."
+                data-dsa-complexity="O(1) push & pop">
+              <td><strong>Forward Navigation</strong></td>
+              <td><span class="concept-pill pill-purple">Stack</span></td>
+              <td><code>O(1)</code> Push / Pop</td>
+              <td>Stores pages stepped backward from, enabling re-visiting until a new URL is typed.</td>
+            </tr>
+            <tr class="dsa-hoverable"
+                data-dsa-title="Page Connections"
+                data-dsa-concept="Doubly Linked List"
+                data-dsa-desc="Bidirectional chain allowing forward and backward traversal."
+                data-dsa-complexity="O(1) step, O(n) scan">
+              <td><strong>Page Connections</strong></td>
+              <td><span class="concept-pill pill-blue">Doubly Linked List</span></td>
+              <td><code>O(1)</code> Step Prev/Next</td>
+              <td>Each history node explicitly points to both predecessor and successor in the timeline.</td>
+            </tr>
+            <tr class="dsa-hoverable"
+                data-dsa-title="Tab Management"
+                data-dsa-concept="Dynamic Array"
+                data-dsa-desc="Indexed collection supporting random tab switching."
+                data-dsa-complexity="O(1) access, O(n) shift">
+              <td><strong>Tab Management</strong></td>
+              <td><span class="concept-pill pill-green">Array / Dynamic Array</span></td>
+              <td><code>O(1)</code> Access by Index</td>
+              <td>Stores tab handles in contiguous order; allows switching to any tab directly by its index.</td>
+            </tr>
+            <tr class="dsa-hoverable"
+                data-dsa-title="History Search"
+                data-dsa-concept="Linear Search"
+                data-dsa-desc="Sequential search through unsorted chronological history."
+                data-dsa-complexity="O(n) comparisons">
+              <td><strong>History Search</strong></td>
+              <td><span class="concept-pill pill-orange">Linear Search</span></td>
+              <td><code>O(n)</code> Sequential Search</td>
+              <td>Browsing history is ordered by time, not URL, requiring sequential checking without an index.</td>
+            </tr>
+            <tr class="dsa-hoverable"
+                data-dsa-title="Website Lookup"
+                data-dsa-concept="Hash Table"
+                data-dsa-desc="Key-value mapping for fast cache and bookmark queries."
+                data-dsa-complexity="Average O(1)">
+              <td><strong>Website Lookup / Cache</strong></td>
+              <td><span class="concept-pill pill-teal">Hash Table</span></td>
+              <td><code>Average O(1)</code> Lookup</td>
+              <td>Hashing URL keys enables instantaneous constant-time retrieval of cached resources.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Closing Callout Banner -->
+      <div class="closing-quote-card">
+        <div class="quote-symbol">“</div>
+        <p class="closing-quote-text">
+          Data Structures and Algorithms are not limited to textbooks. They are the foundation of everyday software applications.
+        </p>
+        <span class="quote-author">— BTech Computer Science &amp; IT Learning Foundation</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>Browser History &amp; Tab Manager — DSA Interactive Educational Project</p>
+      <p class="sub">Crafted with vanilla HTML, CSS, and JavaScript for 2nd-Year Computer Science / IT Students.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom Tab Bar (App-style navigation fixed to viewport bottom) -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Navigation">
+    <a href="#intro" class="mobile-tab-item active">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+      <span class="tab-label">Overview</span>
+    </a>
+    <a href="#stack-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span class="tab-label">Stacks</span>
+    </a>
+    <a href="#dll-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+      </svg>
+      <span class="tab-label">DLL</span>
+    </a>
+    <a href="#array-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span class="tab-label">Tabs</span>
+    </a>
+    <a href="#search-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span class="tab-label">Search</span>
+    </a>
+    <a href="#hash-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="9" x2="20" y2="9"></line>
+        <line x1="4" y1="15" x2="20" y2="15"></line>
+        <line x1="10" y1="3" x2="8" y2="21"></line>
+        <line x1="16" y1="3" x2="14" y2="21"></line>
+      </svg>
+      <span class="tab-label">Hash</span>
+    </a>
+    <a href="#summary-section" class="mobile-tab-item">
+      <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+      </svg>
+      <span class="tab-label">Summary</span>
+    </a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
